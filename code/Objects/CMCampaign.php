@@ -1,9 +1,5 @@
 <?php
 
-namespace Tractorcow\CampaignMonitor;
-
-use CS_REST_Clients;
-
 /**
  * Represents a campaign assigned to a client within the Campaign Monitor database
  *

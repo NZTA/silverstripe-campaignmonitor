@@ -1,7 +1,5 @@
 <?php
 
-namespace Tractorcow\CampaignMonitor;
-
 /**
  * Base class for Campaign Monitor data objects
  *
@@ -11,17 +9,17 @@ namespace Tractorcow\CampaignMonitor;
  */
 abstract class CMObject extends CMBase
 {
-
+    
     /**
      * Stored data for this object. May contain nested data
-     *
+     * 
      * @var array
      */
     protected $record = array();
-
+    
     /**
      * Serialises the data into a format suitable to be sent via the CM api.
-     *
+     * 
      * @return array Data
      */
     public function serializeData()
@@ -31,7 +29,7 @@ abstract class CMObject extends CMBase
 
     /**
      * @param string $apiKey
-     * @param mixed $data
+     * @param mixed $data 
      */
     public function __construct($apiKey = null, $data = null)
     {
@@ -43,7 +41,7 @@ abstract class CMObject extends CMBase
     /**
      * Parses a stdObject into a nested array recursively, in a format suitable
      * for $this->record
-     *
+     * 
      * @param mixed $data Either an object or array with field values
      * @return array The parsed data
      */
@@ -53,23 +51,23 @@ abstract class CMObject extends CMBase
         if (empty($data)) {
             return null;
         }
-
+        
         // Prepare object for conversion
         if (is_object($data)) {
             $data = get_object_vars($data);
         }
-
+        
         // Recursively convert array
         if (is_array($data)) {
             return array_map(array($this, 'convertToArray'), $data);
         }
-
+        
         return $data;
     }
 
     /**
      * Populates the object from the given data
-     *
+     * 
      * @param mixed $data Either an object or array with field values
      */
     protected function populateFrom($data)
@@ -82,8 +80,8 @@ abstract class CMObject extends CMBase
 
     /**
      * Determine if this is a new object, or one that exists in the database
-     *
-     * @return boolean
+     * 
+     * @return boolean 
      */
     public function isNew()
     {
@@ -92,8 +90,8 @@ abstract class CMObject extends CMBase
 
     public function hasField($field)
     {
-        return array_key_exists($field, $this->record) ||
-            $this->hasMethod("get{$field}");
+        return    array_key_exists($field, $this->record) ||
+                $this->hasMethod("get{$field}");
     }
 
     public function getField($field)
@@ -111,7 +109,7 @@ abstract class CMObject extends CMBase
     }
 
     /**
-     * Saves the object to the database
+     * Saves the object to the database 
      */
     abstract public function Save();
 }
